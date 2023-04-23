@@ -9,7 +9,7 @@ return (
     <Navbar.Brand href="#">Senderos</Navbar.Brand>
     <Nav className="me-auto">
       <Nav.Link href="/map">Inicio</Nav.Link>
-      <Nav.Link href="/map/create">Crear</Nav.Link>
+      <Nav.Link href="/map/create">Agregar</Nav.Link>
    </Nav>
     </Container>
   </Navbar>

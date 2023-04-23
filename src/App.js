@@ -1,7 +1,8 @@
 import Main from "./components/main/mainComponent";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/header/headerComponent";
+import Header from "./components/header/HeaderComponent";
+import { CreateRoute } from "./components/form/CreateRoute";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/map" element={<Main />} />
+        <Route path="/map/create" element={<CreateRoute />} />
       </Routes>
     </div>
   );

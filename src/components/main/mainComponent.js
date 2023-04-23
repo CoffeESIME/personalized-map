@@ -7,7 +7,7 @@ import { VentaValle } from "../../GEOJson/VentaValleMonja";
 import { ventaMarquesa } from "../../GEOJson/VentaMarquesa";
 function Main(props) {
   const center = [19.353536, -99.318017];
-  const zoom = 11;
+  const zoom = 13;
   const ZacMarRoute = geoData.features.map((p) => [
     p.geometry.coordinates[1],
     p.geometry.coordinates[0],
@@ -23,12 +23,11 @@ function Main(props) {
   const routes = [
     { id: 1, route: ZacMarRoute },
     { id: 2, route: VentaValleRoute },
-    //{ id: 3, route: ventaMarquesaRoute },
+    { id: 3, route: ventaMarquesaRoute },
   ];
   return (
     <>
       <Container fluid>
-        <Row></Row>
       </Container>
       <MapRoutes center={center} zoom={zoom} routes={routes} />
     </>
