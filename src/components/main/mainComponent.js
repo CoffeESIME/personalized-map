@@ -1,18 +1,32 @@
 'use client';
-import React, {useState, useEffect} from "react";
-import { Row, Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Row, Container, Col } from "react-bootstrap";
 import MapRoutes from "./map/mapComponent";
+import RouteSelector from "../RouteSelector/RouteSelector";
 function Main(props) {
-  // Add state to store the GeoJSON data
-  const [geoJSONData, setGeoJSONData] = useState(null);
+  const [geoJSONData, setGeoJSONData] = useState([]);
+  const [selectedRoutes, setSelectedRoutes] = useState([]);
 
-  // Fetch the GeoJSON data from your server when the component mounts
+  const handleRouteSelection = (routeId, color) => {
+    const route = geoJSONData.find((r) => r.id === routeId);
+    console.log('da color', selectedRoutes)
+    if (color) {
+      setSelectedRoutes((prevRoutes) => [
+        ...prevRoutes.filter((r) => r.id !== routeId),
+        { ...route, color },
+      ]);
+    } else {
+      setSelectedRoutes((prevRoutes) => prevRoutes.filter((r) => r.id !== routeId));
+    }
+  };
+
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('http://localhost:3002/route', {
+      const response = await fetch(`http://${process.env.REACT_APP_API_BASE_URL}:3002/route`, {
         method: 'GET',
       });
       const data = await response.json();
+      console.log(data)
       let arrayRoutes = data.map((route) => {
         const processedCoordinates = route.geoJSON.features[0].geometry.coordinates.map((feature) => [
           feature[1],
@@ -21,9 +35,9 @@ function Main(props) {
         return {
           id: route._id, // Assuming you have an _id field in your route schema
           route: processedCoordinates,
+          name: route.name
         };
-      })      
-      console.log(arrayRoutes)
+      })
 
       setGeoJSONData(arrayRoutes);
     }
@@ -41,13 +55,19 @@ function Main(props) {
   }, []);
 
   const center = [19.353536, -99.318017];
-  const zoom = 13;
+  const zoom = 11;
   return (
-    <>
-      <Container fluid>
-      </Container>
-      {geoJSONData!= null  &&<MapRoutes center={center} zoom={zoom} routes={geoJSONData} />
-    }</>
+    <Container fluid >
+      <Row>
+        <Col sm={8}>
+          {geoJSONData != null && <MapRoutes center={center} zoom={zoom} routes={selectedRoutes} />}
+        </Col>
+        <Col sm={4}>
+          <RouteSelector routes={geoJSONData} onRouteSelection={handleRouteSelection} />
+        </Col>
+      </Row>
+    </Container>
+
   );
 }
 

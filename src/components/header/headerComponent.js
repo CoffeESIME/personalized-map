@@ -6,7 +6,7 @@ return (
     <Row className="mb-3" >
     <Navbar bg="dark" variant="dark">
     <Container>
-    <Navbar.Brand href="#">Senderos</Navbar.Brand>
+    <Navbar.Brand href="/">Senderos</Navbar.Brand>
     <Nav className="me-auto">
       <Nav.Link href="/map">Inicio</Nav.Link>
       <Nav.Link href="/map/create">Agregar</Nav.Link>

@@ -14,18 +14,17 @@ function MapRoutes({ zoom, center, routes, colorRoute, scrollWheel = true }) {
         center={center}
         zoom={zoom}
         scrollWheelZoom={scrollWheel}
-        style={{ height: "50rem", width: "100%" }}
+        style={{ height: "500px", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {console.log('ele', routes)}
         {routes.map((route) => (
           
           <Polyline
             key={route.id}
-            pathOptions={{ color: "red" }}
+            pathOptions={{ color:route.color }}
             positions={route.route}
           />
         ))}
